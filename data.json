@@ -8,15 +8,264 @@
       "year": "2026",
       "deadline": "2026-10-20",
       "description": "Album Rue de Provence in uscita ad ottobre 2026",
-      "tracks": [],
+      "tracks": [
+        {
+          "id": "mqp1qwjvtvq0r",
+          "name": "Rue de Provence",
+          "deadline": "2026-10-20",
+          "note": "Traccia n. 7",
+          "phases": [
+            {
+              "id": "idea_demo",
+              "name": "Idea & Demo",
+              "subtasks": [
+                {
+                  "id": "idea_concept",
+                  "name": "Concept e struttura",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "idea_demo_rec",
+                  "name": "Registrazione demo rough",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "idea_ref",
+                  "name": "Reference track",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "midi_preed",
+              "name": "MIDI & Pre-editing",
+              "subtasks": [
+                {
+                  "id": "midi_arrangement",
+                  "name": "Arrangiamento MIDI",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "midi_drums",
+                  "name": "Programmazione batteria",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "midi_synth",
+                  "name": "Synth / pad / texture",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "midi_cleanup",
+                  "name": "Pulizia e quantize MIDI",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "guitars",
+              "name": "Chitarre & Editing",
+              "subtasks": [
+                {
+                  "id": "gtr_rec",
+                  "name": "Registrazione chitarre",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "gtr_timeflex",
+                  "name": "Time Flex (Logic)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "gtr_edit",
+                  "name": "Editing e comping",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "gtr_tone",
+                  "name": "Tone shaping / amp sim",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "vocals",
+              "name": "Voci & Editing",
+              "subtasks": [
+                {
+                  "id": "vox_rec",
+                  "name": "Registrazione voci (lead + BG)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "vox_timeflex",
+                  "name": "Time Flex (Logic)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "vox_melodyne",
+                  "name": "Pitch correction (Melodyne)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "vox_comping",
+                  "name": "Comping vocale",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "final_edit",
+              "name": "Editing Finale",
+              "subtasks": [
+                {
+                  "id": "fe_arrange",
+                  "name": "Revisione arrangiamento globale",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "fe_timing",
+                  "name": "Timing check globale",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "fe_bounce",
+                  "name": "Bounce pre-mix",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "mixing",
+              "name": "Mixing",
+              "subtasks": [
+                {
+                  "id": "mix_gain",
+                  "name": "Gain staging",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mix_eq",
+                  "name": "EQ & pulizia frequenze",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mix_dyn",
+                  "name": "Dinamiche (compressori)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mix_space",
+                  "name": "Spazialità (reverb/delay)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mix_bus",
+                  "name": "Bus processing",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mix_rev",
+                  "name": "Mix revision #1",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "mastering",
+              "name": "Mastering",
+              "subtasks": [
+                {
+                  "id": "mst_ref",
+                  "name": "Reference matching",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mst_loud",
+                  "name": "Loudness & limiter",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "mst_format",
+                  "name": "Export formati (WAV, MP3)",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "release",
+              "name": "Release",
+              "subtasks": [
+                {
+                  "id": "rel_artwork",
+                  "name": "Artwork copertina",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "rel_meta",
+                  "name": "Metadata (titolo, ISRC, BPM, key)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "rel_distro",
+                  "name": "Upload distributore",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "rel_promo",
+                  "name": "Promo / social",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            }
+          ],
+          "history": [],
+          "createdAt": "2026-06-22T10:02:20.107Z"
+        }
+      ],
       "history": [
         {
           "date": "2026-06-22T10:01:41.317Z",
           "note": "Progetto creato"
+        },
+        {
+          "date": "2026-06-22T10:02:20.107Z",
+          "note": "Traccia \"Rue de Provence\" aggiunta"
         }
       ],
       "createdAt": "2026-06-22T10:01:41.317Z",
-      "updatedAt": "2026-06-22T10:01:41.317Z"
+      "updatedAt": "2026-06-22T10:02:20.107Z"
     }
   ],
   "knowledge": [
