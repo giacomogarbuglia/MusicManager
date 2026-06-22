@@ -257,7 +257,7 @@
           "id": "mqpi954nov7vd",
           "name": "Il protettore",
           "deadline": "2026-10-26",
-          "note": "",
+          "note": "Traccia n. 1",
           "phases": [
             {
               "id": "idea_demo",
@@ -494,7 +494,12 @@
               ]
             }
           ],
-          "history": [],
+          "history": [
+            {
+              "date": "2026-06-22T17:44:33.806Z",
+              "note": "Traccia aggiornata"
+            }
+          ],
           "createdAt": "2026-06-22T17:44:24.887Z"
         }
       ],
