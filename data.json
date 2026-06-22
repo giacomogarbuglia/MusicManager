@@ -1,0 +1,38 @@
+{
+  "projects": [],
+  "knowledge": [
+    {
+      "id": "mqp1oc8cd45p6",
+      "title": "Distributore",
+      "category": "label",
+      "content": "Inserisci qui info su distributore, etichetta, contatti.",
+      "tags": [
+        "distribuzione"
+      ],
+      "history": []
+    },
+    {
+      "id": "mqp1oc8c485s1",
+      "title": "DAW & Strumenti",
+      "category": "tools",
+      "content": "Logic Pro X — Melodyne — Waves — Fab Filter\nStrumenti: chitarre, tastiere, microfoni.",
+      "tags": [
+        "daw",
+        "tools"
+      ],
+      "history": []
+    },
+    {
+      "id": "mqp1oc8c0oa2m",
+      "title": "Store di pubblicazione",
+      "category": "stores",
+      "content": "Spotify, Apple Music, Bandcamp, YouTube Music...",
+      "tags": [
+        "stores"
+      ],
+      "history": []
+    }
+  ],
+  "releases": [],
+  "resources": []
+}
