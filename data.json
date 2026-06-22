@@ -23,7 +23,7 @@
                   "id": "idea_concept",
                   "name": "Concept e struttura",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "idea_demo_rec",
@@ -265,7 +265,7 @@
         }
       ],
       "createdAt": "2026-06-22T10:01:41.317Z",
-      "updatedAt": "2026-06-22T10:02:20.107Z"
+      "updatedAt": "2026-06-22T10:02:26.393Z"
     }
   ],
   "knowledge": [
