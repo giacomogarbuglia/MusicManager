@@ -311,5 +311,13 @@
       "done": false
     }
   ],
-  "resources": []
+  "resources": [
+    {
+      "id": "mqp1vdmtbb7ie",
+      "title": "Rue de Provence",
+      "type": "testo",
+      "content": "prova testo\nbel testo\n\nsi si proprio un bel testo\n\nritornello trallallà",
+      "linkedTrack": "Rue de Provence / Rue de Provence"
+    }
+  ]
 }
