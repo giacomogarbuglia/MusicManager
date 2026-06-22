@@ -301,6 +301,15 @@
       "history": []
     }
   ],
-  "releases": [],
+  "releases": [
+    {
+      "id": "mqp1tfopy2av9",
+      "title": "Rue de Provence",
+      "date": "2026-10-20",
+      "project": "Rue de Provence",
+      "notes": "",
+      "done": false
+    }
+  ],
   "resources": []
 }
