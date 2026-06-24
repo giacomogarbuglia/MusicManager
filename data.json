@@ -7,7 +7,7 @@
       "status": "wip",
       "year": "2026",
       "deadline": "2026-10-26",
-      "description": "Album \"Rue de Provence\" di GEC.",
+      "description": "Album \"Rue de Provence\" di GEC.\n\n---\n\nAggiornato a 24 giugno 2026 ore 19.00\n\nRue de Provence (LP) è stato validato intero album e registrati tutti gli strumenti acustici (incluso Flex Time).\nAlla data attuale bisogna iniziare a registrare le voci.",
       "tracks": [
         {
           "id": "mqrwfyw2s39o6",
@@ -3025,11 +3025,15 @@
         {
           "date": "2026-06-24T12:05:33.419Z",
           "note": "Da creare backup post editing Flex Time delle chitarre!"
+        },
+        {
+          "date": "2026-06-24T15:37:39.091Z",
+          "note": "Progetto aggiornato"
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:04:38.498Z",
-      "lastBackup": "2026-05-15T00:00:00.000Z"
+      "updatedAt": "2026-06-24T15:37:39.091Z",
+      "lastBackup": "2026-06-24T00:00:00.000Z"
     }
   ],
   "knowledge": [
