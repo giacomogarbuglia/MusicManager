@@ -571,13 +571,13 @@
                   "id": "s11",
                   "name": "Editare basso con Flex Time",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s12",
                   "name": "Registrare chitarre",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s13",
@@ -2970,7 +2970,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T10:21:08.707Z",
+      "updatedAt": "2026-06-24T10:21:11.024Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
