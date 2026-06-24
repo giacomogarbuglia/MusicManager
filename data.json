@@ -2,16 +2,6 @@
   "projects": [],
   "knowledge": [
     {
-      "id": "mqp1oc8cd45p6",
-      "title": "Distributore",
-      "category": "label",
-      "content": "Inserisci qui info su distributore, etichetta, contatti.",
-      "tags": [
-        "distribuzione"
-      ],
-      "history": []
-    },
-    {
       "id": "mqp1oc8c485s1",
       "title": "DAW & Strumenti",
       "category": "tools",
