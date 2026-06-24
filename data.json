@@ -1287,7 +1287,7 @@
                   "id": "s11",
                   "name": "Editare basso con Flex Time",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s12",
@@ -1564,7 +1564,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:58:43.518Z",
+      "updatedAt": "2026-06-24T11:58:45.646Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
