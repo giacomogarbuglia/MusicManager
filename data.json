@@ -1315,9 +1315,10 @@
                 },
                 {
                   "id": "s15",
-                  "name": "Registrare voci",
+                  "name": "Registrare cori",
                   "fixed": true,
-                  "done": false
+                  "done": false,
+                  "note": ""
                 },
                 {
                   "id": "s16",
