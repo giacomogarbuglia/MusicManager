@@ -2985,6 +2985,17 @@
         "plugin"
       ],
       "history": []
+    },
+    {
+      "id": "mqrwrvarv9od8",
+      "title": "Mixing/Mastering",
+      "content": "- Seguire la legge di LHPR (Layer High-frequencies-off Panning Reverb)\n- Correzione (iZotope RX 10 Standard)\n- MIXING: Reverb - Dynamics - Environment - Abbellimento - Compression - Limiter (iZotope\nNectar 4 e Neuron 4)\n- Panning - Volume Levels e Fades - Tone Frequencies\n- iZotope Ozone 11 Advance\n- Soundtheory Gullfoss\n\nVOLUME MASTER DI INIZIO DI RIFERIMENTO: -3.5dB/-4.0dB\nVOLUME MASTER DI PICCO DI RIFERIMENTO: -0.0B\nVOLUME MASTER DI MEDIA DI RIFERIMENTO: -1.5dB/-2.0dB",
+      "tags": [
+        "mix",
+        "master",
+        "volume"
+      ],
+      "history": []
     }
   ],
   "releases": [],
