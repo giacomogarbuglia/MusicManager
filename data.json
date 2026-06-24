@@ -3064,6 +3064,19 @@
         "etichetta"
       ],
       "history": []
+    },
+    {
+      "id": "mqs4nctmonlph",
+      "title": "Release Bouncing",
+      "content": "Destination: PCM\nMode: Offline\nNormalize: On\nFile Type: WAVE\nSample Rate: 192 kHz\nFormat: Interleaved\nDithering: None",
+      "tags": [
+        "daw",
+        "produzione",
+        "bounce",
+        "release",
+        "WAVE"
+      ],
+      "history": []
     }
   ],
   "releases": [
