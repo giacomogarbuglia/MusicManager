@@ -738,7 +738,7 @@
                   "id": "s1",
                   "name": "Registrare strumenti MIDI",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s2",
@@ -1079,7 +1079,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:56:24.376Z",
+      "updatedAt": "2026-06-24T11:56:27.661Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
