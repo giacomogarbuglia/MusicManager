@@ -1245,13 +1245,13 @@
                   "id": "s5",
                   "name": "Aggiustare tonalità secondo traccia precedente e/o successiva",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s6",
                   "name": "Eseguire correzioni (quantize, sustain, effetti base, dinamiche e velocity)",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s7",
@@ -1564,7 +1564,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:58:34.186Z",
+      "updatedAt": "2026-06-24T11:58:36.551Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
