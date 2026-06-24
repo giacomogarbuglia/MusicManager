@@ -363,7 +363,7 @@
                   "id": "s15",
                   "name": "Registrare voci",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s16",
@@ -2732,7 +2732,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:51:46.074Z",
+      "updatedAt": "2026-06-24T11:51:48.062Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
