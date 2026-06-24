@@ -273,7 +273,7 @@
                   "id": "idea_demo_rec",
                   "name": "Registrazione demo rough",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "idea_ref",
@@ -770,7 +770,7 @@
         }
       ],
       "createdAt": "2026-06-22T10:01:41.317Z",
-      "updatedAt": "2026-06-22T17:45:03.026Z"
+      "updatedAt": "2026-06-24T09:50:27.851Z"
     }
   ],
   "knowledge": [
