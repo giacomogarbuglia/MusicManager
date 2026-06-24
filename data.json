@@ -2706,7 +2706,7 @@
                   "id": "s9",
                   "name": "Controllare basso",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s10",
@@ -3019,7 +3019,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:04:29.707Z",
+      "updatedAt": "2026-06-24T12:04:31.388Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
