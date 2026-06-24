@@ -21,9 +21,10 @@
               "subtasks": [
                 {
                   "id": "s1",
-                  "name": "Registrare strumenti MIDI",
+                  "name": "Registrare strumenti MIDI!",
                   "fixed": true,
-                  "done": true
+                  "done": true,
+                  "note": ""
                 },
                 {
                   "id": "s2",
