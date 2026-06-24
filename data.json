@@ -1060,7 +1060,7 @@
                   "id": "s13",
                   "name": "Editare chitarre con Flex Time",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 }
               ]
             },
@@ -1321,7 +1321,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:57:34.239Z",
+      "updatedAt": "2026-06-24T11:57:35.830Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
