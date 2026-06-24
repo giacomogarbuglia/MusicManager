@@ -2009,13 +2009,13 @@
                   "id": "s12",
                   "name": "Registrare chitarre",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s13",
                   "name": "Editare chitarre con Flex Time",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 }
               ]
             },
@@ -2292,7 +2292,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:01:30.955Z",
+      "updatedAt": "2026-06-24T12:01:37.470Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
