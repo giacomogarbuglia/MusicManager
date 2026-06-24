@@ -603,6 +603,7 @@ function renderProjectTasks(p) {
       <div style="flex:1">
         <div class="subtask-label ${pt.done?'done':''}">${pt.name}${pt.deadline?' 📅':''}</div>
       </div>
+      <button class="btn btn-ghost btn-sm btn-icon" onclick="openModal('edit-project-task','${p.id}','${pt.id}')" style="font-size:12px">✏️</button>
     </div>
   `).join('');
 }
@@ -620,13 +621,10 @@ function renderTrack(p, t, idx) {
   const key = p.id + '_' + t.id;
   const open = STATE.expandedTracks[key];
   const tpct = trackProgress(t);
-  const isFirst = idx === 0;
-  const isLast = idx === (p.tracks||[]).length - 1;
 
-  return `<div class="track-row draggable-item" draggable="true" data-index="${idx}" ondragstart="startDrag(event,'track','${p.id}','${idx}')" ondrop="drop(event,'track','${p.id}')" ondragover="dragOver(event)" ondragleave="dragLeave(event)">
+  return `<div class="track-row">
     <div class="track-header" onclick="toggleTrack('${key}')">
       <div class="flex items-center gap8">
-        <span class="drag-handle">⋮⋮</span>
         <span style="font-size:18px">${open?'▾':'▸'}</span>
         <div>
           <div class="track-title">${t.name}</div>
@@ -656,9 +654,8 @@ function renderPhases(p, t) {
     const open = STATE.expandedPhases[key] !== false;
     const prog = phaseProgress(ph);
     return `<div class="task-phase">
-      <div class="phase-header" ondragstart="startDrag(event,'phase','${p.id}','${t.id}','${phIdx}')" draggable="true" data-index="${phIdx}" onclick="togglePhase('${key}')">
+      <div class="phase-header" onclick="togglePhase('${key}')">
         <div class="phase-title">
-          <span class="drag-handle">⋮</span>
           <span>${open?'▾':'▸'}</span>
           <span>${ph.name}</span>
           <span class="chip">${prog.done}/${prog.total}</span>
@@ -674,13 +671,12 @@ function renderPhases(p, t) {
 }
 
 function renderSubtask(p, t, ph, s, sIdx) {
-  return `<div class="subtask-row draggable-item" draggable="true" data-index="${sIdx}" ondragstart="startDrag(event,'subtask','${p.id}','${t.id}','${ph.id}','${sIdx}')" ondragover="dragOver(event)" ondrop="drop(event,'subtask','${p.id}','${t.id}','${ph.id}')">
+  return `<div class="subtask-row">
     <input type="checkbox" class="subtask-check" ${s.done?'checked':''} onchange="toggleSubtask('${p.id}','${t.id}','${ph.id}','${s.id}',this.checked)">
     <div style="flex:1">
       <div class="subtask-label ${s.done?'done':''}">${s.name}${s.fixed?'':' <span style="color:var(--accent3);font-size:10px">custom</span>'}</div>
       ${s.note?`<div class="subtask-note">${s.note}</div>`:''}
     </div>
-    <span class="drag-handle">⋮</span>
     <button class="btn btn-ghost btn-sm btn-icon" onclick="openModal('edit-subtask','${p.id}','${t.id}','${ph.id}','${s.id}')" style="font-size:12px">✏️</button>
     ${!s.fixed?`<button class="btn btn-ghost btn-sm btn-icon" onclick="deleteSubtask('${p.id}','${t.id}','${ph.id}','${s.id}')" style="color:var(--red)">✕</button>`:''}
   </div>`;
@@ -918,6 +914,17 @@ function renderModal() {
     </div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Chiudi</button></div>`;
   }
 
+  else if (type === 'edit-project-task') {
+    const [pid, tid] = args;
+    const p = STATE.data.projects.find(x=>x.id===pid);
+    const t = (p.projectTasks||[]).find(x=>x.id===tid);
+    content = `<div class="modal-header"><h3>Modifica Attività Progetto</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Nome attività</label><input class="form-input" id="m-name" value="${t.name}"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Annulla</button><button class="btn btn-primary" onclick="updateProjectTask('${pid}','${tid}')">Salva</button></div>`;
+  }
+
   else if (type === 'new-kb') {
     content = `<div class="modal-header"><h3>Nuovo Articolo KB</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
@@ -1078,7 +1085,9 @@ function toggleSubtask(pid, tid, phid, sid, checked) {
   const scrollPos = scrollMain ? scrollMain.scrollTop : 0;
   
   saveData();
-  setTimeout(() => { if (scrollMain) scrollMain.scrollTop = scrollPos; }, 10);
+  render();
+  
+  if (scrollMain) scrollMain.scrollTop = scrollPos;
 }
 
 function toggleProjectTask(pid, tid, checked) {
@@ -1091,7 +1100,9 @@ function toggleProjectTask(pid, tid, checked) {
   const scrollPos = scrollMain ? scrollMain.scrollTop : 0;
   
   saveData();
-  setTimeout(() => { if (scrollMain) scrollMain.scrollTop = scrollPos; }, 10);
+  render();
+  
+  if (scrollMain) scrollMain.scrollTop = scrollPos;
 }
 
 function addCustomSubtask(pid, tid, phid) {
@@ -1109,6 +1120,13 @@ function updateSubtask(pid, tid, phid, sid) {
   const s = ph.subtasks.find(x=>x.id===sid);
   s.name = v('m-name');
   s.note = v('m-note');
+  closeModal(); saveData();
+}
+
+function updateProjectTask(pid, tid) {
+  const p = STATE.data.projects.find(x=>x.id===pid);
+  const t = (p.projectTasks||[]).find(x=>x.id===tid);
+  if (t) t.name = v('m-name');
   closeModal(); saveData();
 }
 
@@ -1209,90 +1227,6 @@ function deleteRelease(id) {
 function exportJSON() {
   const blob = new Blob([JSON.stringify(STATE.data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'data.json'; a.click();
-}
-
-// ============================================================
-// DRAG & DROP
-// ============================================================
-function startDrag(e, type, ...args) {
-  STATE.dragSource = { type, args };
-  e.dataTransfer.effectAllowed = 'move';
-}
-
-function dragOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.classList.add('drag-over');
-}
-
-function dragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
-}
-
-function drop(e, destType, ...destArgs) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  if (!STATE.dragSource) return;
-  const { type: srcType, args: srcArgs } = STATE.dragSource;
-  if (srcType !== destType) return;
-
-  const destIdx = parseInt(e.currentTarget.getAttribute('data-index'));
-  if (destIdx === undefined) return;
-
-  const [pid, tid, phid, srcIdx] = srcArgs;
-  const p = STATE.data.projects.find(x=>x.id===pid);
-  if (!p) return;
-
-  const scrollMain = document.getElementById('main');
-  const scrollPos = scrollMain ? scrollMain.scrollTop : 0;
-
-  if (srcType === 'track') {
-    const tracks = p.tracks;
-    if (srcIdx === destIdx) return;
-    const [track] = tracks.splice(srcIdx, 1);
-    tracks.splice(destIdx, 0, track);
-  } else if (srcType === 'phase') {
-    const t = p.tracks.find(x=>x.id===tid);
-    if (!t) return;
-    const phases = t.phases;
-    if (srcIdx === destIdx) return;
-    const [phase] = phases.splice(srcIdx, 1);
-    phases.splice(destIdx, 0, phase);
-  } else if (srcType === 'subtask') {
-    const t = p.tracks.find(x=>x.id===tid);
-    if (!t) return;
-    const ph = t.phases.find(x=>x.id===phid);
-    if (!ph) return;
-    const subtasks = ph.subtasks;
-    if (srcIdx === destIdx) return;
-    const [subtask] = subtasks.splice(srcIdx, 1);
-    subtasks.splice(destIdx, 0, subtask);
-  }
-
-  STATE.dragSource = null;
-  saveData();
-  setTimeout(() => { if (scrollMain) scrollMain.scrollTop = scrollPos; }, 10);
-}
-
-// ============================================================
-// UTILS
-// ============================================================
-function fmtDate(d) {
-  if (!d) return '';
-  try { return new Date(d).toLocaleDateString('it-IT', { day:'2-digit', month:'short', year:'numeric' }); } catch { return d; }
-}
-
-function deadlineClass(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr); const now = new Date();
-  const diff = (d - now) / (1000*60*60*24);
-  if (diff < 0) return 'overdue';
-  if (diff < 14) return 'soon';
-  return '';
-}
-
-function attachEvents() {
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && STATE.modal) { closeModal(); } }, { once: true });
 }
 
 // ============================================================
