@@ -1130,6 +1130,27 @@ function updateProjectTask(pid, tid) {
   closeModal(); saveData();
 }
 
+// ============================================================
+// UTILS
+// ============================================================
+function fmtDate(d) {
+  if (!d) return '';
+  try { return new Date(d).toLocaleDateString('it-IT', { day:'2-digit', month:'short', year:'numeric' }); } catch { return d; }
+}
+
+function deadlineClass(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr); const now = new Date();
+  const diff = (d - now) / (1000*60*60*24);
+  if (diff < 0) return 'overdue';
+  if (diff < 14) return 'soon';
+  return '';
+}
+
+function attachEvents() {
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && STATE.modal) { closeModal(); } }, { once: true });
+}
+
 function deleteSubtask(pid, tid, phid, sid) {
   if (!confirm('Eliminare attività?')) return;
   const p = STATE.data.projects.find(x=>x.id===pid);
