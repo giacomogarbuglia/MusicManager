@@ -2652,7 +2652,7 @@
                   "id": "s2",
                   "name": "Scrivere testo",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s3",
@@ -3019,7 +3019,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:04:17.528Z",
+      "updatedAt": "2026-06-24T12:04:19.262Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
