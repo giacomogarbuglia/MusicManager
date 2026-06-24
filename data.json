@@ -273,7 +273,7 @@
                   "id": "idea_demo_rec",
                   "name": "Registrazione demo rough",
                   "fixed": true,
-                  "done": true
+                  "done": false
                 },
                 {
                   "id": "idea_ref",
@@ -770,7 +770,7 @@
         }
       ],
       "createdAt": "2026-06-22T10:01:41.317Z",
-      "updatedAt": "2026-06-24T09:50:27.851Z"
+      "updatedAt": "2026-06-24T09:50:28.545Z"
     }
   ],
   "knowledge": [
@@ -823,6 +823,13 @@
       "type": "testo",
       "content": "prova testo\nbel testo\n\nsi si proprio un bel testo\n\nritornello trallallÃ \n\n\nhoiuhougoiyugoiy\n\n\n\n\npiopèjipojèoipi\n\nohoihoihoihjoi\nouiyhoihoi\n\n\n\n\n\n\n\nopihoihuihguihouhuih",
       "linkedTrack": "Rue de Provence / Rue de Provence"
+    },
+    {
+      "id": "mqrwb3qorv73a",
+      "title": "",
+      "type": "audio",
+      "content": "",
+      "linkedTrack": ""
     }
   ]
 }
