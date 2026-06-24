@@ -511,13 +511,13 @@
                   "id": "s3",
                   "name": "Impostare time signature e tempo",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s4",
                   "name": "Creare struttura tracce completa",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 }
               ]
             },
@@ -2970,7 +2970,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T10:20:52.433Z",
+      "updatedAt": "2026-06-24T10:20:54.562Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
