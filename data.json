@@ -518,7 +518,7 @@
                   "id": "s4",
                   "name": "Creare struttura tracce completa",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 }
               ]
             },
@@ -837,7 +837,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:55:39.169Z",
+      "updatedAt": "2026-06-24T11:55:40.321Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
