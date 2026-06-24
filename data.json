@@ -6,7 +6,7 @@
       "type": "album",
       "status": "todo",
       "year": "2026",
-      "deadline": "2026-10-25",
+      "deadline": "2026-10-26",
       "description": "Album \"Rue de Provence\" di GEC.",
       "tracks": [
         {
@@ -297,11 +297,15 @@
         {
           "date": "2026-06-24T09:57:10.370Z",
           "note": "Traccia \"Il protettore\" aggiunta"
+        },
+        {
+          "date": "2026-06-24T09:58:34.897Z",
+          "note": "Progetto aggiornato"
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T09:57:10.370Z",
-      "lastBackup": null
+      "updatedAt": "2026-06-24T09:58:34.897Z",
+      "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
   "knowledge": [],
