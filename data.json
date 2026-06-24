@@ -1919,7 +1919,7 @@
         },
         {
           "id": "mqs0vg81yj66o",
-          "name": "Cherie Poirot",
+          "name": "Chérie Poirot",
           "deadline": "2026-10-26",
           "note": "Traccia n. 9",
           "phases": [
@@ -2153,7 +2153,12 @@
               ]
             }
           ],
-          "history": [],
+          "history": [
+            {
+              "date": "2026-06-24T13:58:37.638Z",
+              "note": "Traccia aggiornata"
+            }
+          ],
           "createdAt": "2026-06-24T12:01:11.137Z"
         },
         {
