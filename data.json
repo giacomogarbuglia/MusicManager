@@ -2642,7 +2642,7 @@
         {
           "id": "pt3",
           "name": "Pubblicare con TuneCore - 26/10/2026",
-          "done": false
+          "done": true
         },
         {
           "id": "pt4",
@@ -2732,7 +2732,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:52:01.561Z",
+      "updatedAt": "2026-06-24T11:52:03.281Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
