@@ -1198,6 +1198,244 @@
           ],
           "history": [],
           "createdAt": "2026-06-24T10:01:33.169Z"
+        },
+        {
+          "id": "mqrwlyria7pxw",
+          "name": "Labbra e rossetto",
+          "deadline": "2026-10-26",
+          "note": "Traccia n. 6",
+          "phases": [
+            {
+              "id": "demo",
+              "name": "DEMO - Fase preliminare",
+              "subtasks": [
+                {
+                  "id": "s1",
+                  "name": "Registrare strumenti MIDI",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s2",
+                  "name": "Scrivere testo",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s3",
+                  "name": "Impostare time signature e tempo",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s4",
+                  "name": "Creare struttura tracce completa",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "produzione",
+              "name": "PRODUZIONE",
+              "subtasks": [
+                {
+                  "id": "s5",
+                  "name": "Aggiustare tonalità secondo traccia precedente e/o successiva",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s6",
+                  "name": "Eseguire correzioni (quantize, sustain, effetti base, dinamiche e velocity)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s7",
+                  "name": "Trasformare batteria (da Drummer) in MIDI (scegliere set kit, posizionare volumi, effetti ed inserire piatti)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s8",
+                  "name": "Controllare signature e tempo",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "strumenti",
+              "name": "STRUMENTI ANALOGICI",
+              "subtasks": [
+                {
+                  "id": "s9",
+                  "name": "Controllare basso",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s10",
+                  "name": "Registrare basso",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s11",
+                  "name": "Editare basso con Flex Time",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s12",
+                  "name": "Registrare chitarre",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s13",
+                  "name": "Editare chitarre con Flex Time",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "voci",
+              "name": "VOCI",
+              "subtasks": [
+                {
+                  "id": "s14",
+                  "name": "Verificare grammatica, logica e metrica del testo",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s15",
+                  "name": "Registrare voci",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s16",
+                  "name": "Editare voci con Flex Time",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s17",
+                  "name": "Editare voci con Melodyne",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "final_edit",
+              "name": "EDITING FINALE",
+              "subtasks": [
+                {
+                  "id": "s18",
+                  "name": "Revisione arrangiamento globale",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s19",
+                  "name": "Timing check globale",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s20",
+                  "name": "Bounce pre-mix",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "mixing",
+              "name": "MIXING",
+              "subtasks": [
+                {
+                  "id": "s21",
+                  "name": "Gain staging",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s22",
+                  "name": "EQ & pulizia frequenze",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s23",
+                  "name": "Dinamiche (compressori)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s24",
+                  "name": "Spazialità (reverb/delay)",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s25",
+                  "name": "Bus processing",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s26",
+                  "name": "Mix revision #1",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "mastering",
+              "name": "MASTERING",
+              "subtasks": [
+                {
+                  "id": "s27",
+                  "name": "Reference matching",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s28",
+                  "name": "Loudness & limiter",
+                  "fixed": true,
+                  "done": false
+                },
+                {
+                  "id": "s29",
+                  "name": "Export formati (WAV, MP3)",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            },
+            {
+              "id": "release",
+              "name": "RELEASE",
+              "subtasks": [
+                {
+                  "id": "s30",
+                  "name": "Verificare mix generale in cuffia e casse monitor",
+                  "fixed": true,
+                  "done": false
+                }
+              ]
+            }
+          ],
+          "history": [],
+          "createdAt": "2026-06-24T10:01:50.142Z"
         }
       ],
       "projectTasks": [
@@ -1273,10 +1511,14 @@
         {
           "date": "2026-06-24T10:01:33.169Z",
           "note": "Traccia \"Il cliente\" aggiunta"
+        },
+        {
+          "date": "2026-06-24T10:01:50.142Z",
+          "note": "Traccia \"Labbra e rossetto\" aggiunta"
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T10:01:33.169Z",
+      "updatedAt": "2026-06-24T10:01:50.142Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
