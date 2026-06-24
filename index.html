@@ -74,7 +74,6 @@
   .badge-album { background: #1e3a5f; color: var(--accent3); }
   .badge-ep { background: #2d1b69; color: var(--accent2); }
   .badge-single { background: #14532d; color: var(--green); }
-  .badge-brano { background: #451a03; color: var(--orange); }
 
   /* STATUS */
   .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -111,6 +110,12 @@
   .proj-card-sub { font-size: 12px; color: var(--text2); }
   .proj-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
 
+  /* DRAGGABLE */
+  .draggable-item { cursor: grab; padding: 10px; border-radius: 8px; transition: opacity .15s; }
+  .draggable-item:active { cursor: grabbing; }
+  .draggable-item.drag-over { background: var(--bg4); opacity: 0.5; }
+  .drag-handle { cursor: grab; font-size: 16px; margin-right: 6px; opacity: 0.6; }
+
   /* TRACK ROW */
   .track-row { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
   .track-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
@@ -129,7 +134,13 @@
   .subtask-label.done { text-decoration: line-through; color: var(--text3); }
   .subtask-note { font-size: 11px; color: var(--text3); font-style: italic; }
 
-  /* PLANNER */
+  /* PLANNER TABS */
+  .planner-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .planner-tab { padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text2); border-bottom: 2px solid transparent; transition: all .15s; }
+  .planner-tab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+  .planner-tab:hover { color: var(--text); }
+
+  /* TIMELINE */
   .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
   .timeline-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
   .timeline-line { width: 2px; background: var(--border); position: absolute; top: 16px; bottom: -16px; left: 5px; }
@@ -145,9 +156,10 @@
   .kb-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
   .kb-tag { display: inline-block; background: var(--bg4); color: var(--text2); font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-right: 4px; }
 
-  /* TESTI */
-  .testo-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; cursor: pointer; }
-  .testo-preview { font-size: 12px; color: var(--text2); margin-top: 6px; white-space: pre-wrap; max-height: 60px; overflow: hidden; }
+  /* RISORSE */
+  .risorsa-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; cursor: pointer; }
+  .risorsa-preview { font-size: 12px; color: var(--text2); margin-top: 6px; white-space: pre-wrap; max-height: 60px; overflow: hidden; }
+  .risorsa-file { font-size: 11px; color: var(--accent3); margin-top: 4px; }
 
   /* HISTORY */
   .history-entry { border-left: 2px solid var(--accent); padding: 6px 12px; margin-bottom: 8px; }
@@ -182,6 +194,11 @@
   .scrollable { overflow-y: auto; max-height: 400px; }
   details > summary { list-style: none; cursor: pointer; }
   details > summary::-webkit-details-marker { display: none; }
+
+  .backup-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 11px; border: 1px solid var(--border); }
+  .backup-ok { border-color: var(--green); color: var(--green); }
+  .backup-warning { border-color: var(--yellow); color: var(--yellow); }
+  .backup-alert { border-color: var(--red); color: var(--red); }
 </style>
 </head>
 <body>
@@ -190,87 +207,107 @@
 
 <script>
 // ============================================================
-// DEFAULT TASK TEMPLATE
+// DEFAULT TASK TEMPLATE - NUOVO
 // ============================================================
 const DEFAULT_PHASES = [
   {
-    id: 'idea_demo', name: 'Idea & Demo',
+    id: 'demo',
+    name: 'DEMO - Fase preliminare',
     subtasks: [
-      { id: 'idea_concept', name: 'Concept e struttura', fixed: true },
-      { id: 'idea_demo_rec', name: 'Registrazione demo rough', fixed: true },
-      { id: 'idea_ref', name: 'Reference track', fixed: true },
+      { id: 's1', name: 'Registrare strumenti MIDI', fixed: true },
+      { id: 's2', name: 'Scrivere testo', fixed: true },
+      { id: 's3', name: 'Impostare time signature e tempo', fixed: true },
+      { id: 's4', name: 'Creare struttura tracce completa', fixed: true },
     ]
   },
   {
-    id: 'midi_preed', name: 'MIDI & Pre-editing',
+    id: 'produzione',
+    name: 'PRODUZIONE',
     subtasks: [
-      { id: 'midi_arrangement', name: 'Arrangiamento MIDI', fixed: true },
-      { id: 'midi_drums', name: 'Programmazione batteria', fixed: true },
-      { id: 'midi_synth', name: 'Synth / pad / texture', fixed: true },
-      { id: 'midi_cleanup', name: 'Pulizia e quantize MIDI', fixed: true },
+      { id: 's5', name: 'Aggiustare tonalità secondo traccia precedente e/o successiva', fixed: true },
+      { id: 's6', name: 'Eseguire correzioni (quantize, sustain, effetti base, dinamiche e velocity)', fixed: true },
+      { id: 's7', name: 'Trasformare batteria (da Drummer) in MIDI (scegliere set kit, posizionare volumi, effetti ed inserire piatti)', fixed: true },
+      { id: 's8', name: 'Controllare signature e tempo', fixed: true },
     ]
   },
   {
-    id: 'guitars', name: 'Chitarre & Editing',
+    id: 'strumenti',
+    name: 'STRUMENTI ANALOGICI',
     subtasks: [
-      { id: 'gtr_rec', name: 'Registrazione chitarre', fixed: true },
-      { id: 'gtr_timeflex', name: 'Time Flex (Logic)', fixed: true },
-      { id: 'gtr_edit', name: 'Editing e comping', fixed: true },
-      { id: 'gtr_tone', name: 'Tone shaping / amp sim', fixed: true },
+      { id: 's9', name: 'Controllare basso', fixed: true },
+      { id: 's10', name: 'Registrare basso', fixed: true },
+      { id: 's11', name: 'Editare basso con Flex Time', fixed: true },
+      { id: 's12', name: 'Registrare chitarre', fixed: true },
+      { id: 's13', name: 'Editare chitarre con Flex Time', fixed: true },
     ]
   },
   {
-    id: 'vocals', name: 'Voci & Editing',
+    id: 'voci',
+    name: 'VOCI',
     subtasks: [
-      { id: 'vox_rec', name: 'Registrazione voci (lead + BG)', fixed: true },
-      { id: 'vox_timeflex', name: 'Time Flex (Logic)', fixed: true },
-      { id: 'vox_melodyne', name: 'Pitch correction (Melodyne)', fixed: true },
-      { id: 'vox_comping', name: 'Comping vocale', fixed: true },
+      { id: 's14', name: 'Verificare grammatica, logica e metrica del testo', fixed: true },
+      { id: 's15', name: 'Registrare voci', fixed: true },
+      { id: 's16', name: 'Editare voci con Flex Time', fixed: true },
+      { id: 's17', name: 'Editare voci con Melodyne', fixed: true },
     ]
   },
   {
-    id: 'final_edit', name: 'Editing Finale',
+    id: 'final_edit',
+    name: 'EDITING FINALE',
     subtasks: [
-      { id: 'fe_arrange', name: 'Revisione arrangiamento globale', fixed: true },
-      { id: 'fe_timing', name: 'Timing check globale', fixed: true },
-      { id: 'fe_bounce', name: 'Bounce pre-mix', fixed: true },
+      { id: 's18', name: 'Revisione arrangiamento globale', fixed: true },
+      { id: 's19', name: 'Timing check globale', fixed: true },
+      { id: 's20', name: 'Bounce pre-mix', fixed: true },
     ]
   },
   {
-    id: 'mixing', name: 'Mixing',
+    id: 'mixing',
+    name: 'MIXING',
     subtasks: [
-      { id: 'mix_gain', name: 'Gain staging', fixed: true },
-      { id: 'mix_eq', name: 'EQ & pulizia frequenze', fixed: true },
-      { id: 'mix_dyn', name: 'Dinamiche (compressori)', fixed: true },
-      { id: 'mix_space', name: 'Spazialità (reverb/delay)', fixed: true },
-      { id: 'mix_bus', name: 'Bus processing', fixed: true },
-      { id: 'mix_rev', name: 'Mix revision #1', fixed: true },
+      { id: 's21', name: 'Gain staging', fixed: true },
+      { id: 's22', name: 'EQ & pulizia frequenze', fixed: true },
+      { id: 's23', name: 'Dinamiche (compressori)', fixed: true },
+      { id: 's24', name: 'Spazialità (reverb/delay)', fixed: true },
+      { id: 's25', name: 'Bus processing', fixed: true },
+      { id: 's26', name: 'Mix revision #1', fixed: true },
     ]
   },
   {
-    id: 'mastering', name: 'Mastering',
+    id: 'mastering',
+    name: 'MASTERING',
     subtasks: [
-      { id: 'mst_ref', name: 'Reference matching', fixed: true },
-      { id: 'mst_loud', name: 'Loudness & limiter', fixed: true },
-      { id: 'mst_format', name: 'Export formati (WAV, MP3)', fixed: true },
+      { id: 's27', name: 'Reference matching', fixed: true },
+      { id: 's28', name: 'Loudness & limiter', fixed: true },
+      { id: 's29', name: 'Export formati (WAV, MP3)', fixed: true },
     ]
   },
   {
-    id: 'release', name: 'Release',
+    id: 'release',
+    name: 'RELEASE',
     subtasks: [
-      { id: 'rel_artwork', name: 'Artwork copertina', fixed: true },
-      { id: 'rel_meta', name: 'Metadata (titolo, ISRC, BPM, key)', fixed: true },
-      { id: 'rel_distro', name: 'Upload distributore', fixed: true },
-      { id: 'rel_promo', name: 'Promo / social', fixed: true },
+      { id: 's30', name: 'Verificare mix generale in cuffia e casse monitor', fixed: true },
     ]
   },
+];
+
+// ============================================================
+// DEFAULT PROJECT TASKS - NUOVO
+// ============================================================
+const DEFAULT_PROJECT_TASKS = [
+  { id: 'pt1', name: 'Creare album cover', done: false },
+  { id: 'pt2', name: 'Eseguire bounce release album', done: false },
+  { id: 'pt3', name: 'Pubblicare con TuneCore', done: false },
+  { id: 'pt4', name: 'Pubblicare diritti con SIAE e TuneCore Publishing', done: false, deadline: true },
+  { id: 'pt5', name: 'Pubblicare testi con Musixmatch', done: false, deadline: true },
+  { id: 'pt6', name: 'Produrre e pubblicare video musicale per YouTube', done: false, deadline: true },
+  { id: 'pt7', name: 'Produrre e pubblicare post da 60 secondi per Instagram', done: false, deadline: true },
 ];
 
 // ============================================================
 // STATE
 // ============================================================
 let STATE = {
-  config: null, // { token, owner, repo, sha }
+  config: null,
   data: null,
   page: 'dashboard',
   activeProject: null,
@@ -278,6 +315,8 @@ let STATE = {
   modal: null,
   expandedTracks: {},
   expandedPhases: {},
+  plannerTab: 'all',
+  dragSource: null,
 };
 
 function emptyData() {
@@ -296,7 +335,7 @@ function emptyData() {
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
 // ============================================================
-// GITHUB API
+// GITHUB API - CON FIX UTF-8
 // ============================================================
 const GH = {
   headers(token) {
@@ -307,10 +346,15 @@ const GH = {
     if (r.status === 404) return null;
     if (!r.ok) throw new Error('GitHub error: ' + r.status);
     const j = await r.json();
-    return { content: JSON.parse(atob(j.content.replace(/\n/g,''))), sha: j.sha };
+    try {
+      const utf8 = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+      return { content: JSON.parse(utf8), sha: j.sha };
+    } catch(e) { throw new Error('Decode error: ' + e.message); }
   },
   async saveFile(cfg, data) {
-    const body = { message: `update ${new Date().toISOString()}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))), sha: cfg.sha };
+    const utf8 = unescape(encodeURIComponent(JSON.stringify(data, null, 2)));
+    const b64 = btoa(utf8);
+    const body = { message: `update ${new Date().toISOString()}`, content: b64, sha: cfg.sha };
     const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/data.json`, { method: 'PUT', headers: GH.headers(cfg.token), body: JSON.stringify(body) });
     if (!r.ok) throw new Error('Save error: ' + r.status);
     const j = await r.json();
@@ -329,7 +373,7 @@ function saveConfig(cfg) { localStorage.setItem('mprod_cfg', JSON.stringify(cfg)
 // ============================================================
 // SAVE
 // ============================================================
-async function saveData(note = '') {
+async function saveData() {
   if (!STATE.config) return;
   showToast('Salvataggio...', 'info');
   try {
@@ -400,7 +444,7 @@ function renderSidebar() {
       ${n('releases','🚀','Release Schedule')}
       <div class="nav-section">Risorse</div>
       ${n('knowledge','📚','Knowledge Base')}
-      ${n('resources','📝','Testi & Risorse')}
+      ${n('resources','📦','Risorse')}
       <div class="nav-section">Sistema</div>
       ${n('settings','⚙️','Impostazioni')}
     </div>
@@ -411,7 +455,7 @@ function renderSidebar() {
 }
 
 function renderTopbar() {
-  const titles = { dashboard:'Dashboard', projects:'Progetti', planner:'Planner', releases:'Release Schedule', knowledge:'Knowledge Base', resources:'Testi & Risorse', settings:'Impostazioni' };
+  const titles = { dashboard:'Dashboard', projects:'Progetti', planner:'Planner', releases:'Release Schedule', knowledge:'Knowledge Base', resources:'Risorse', settings:'Impostazioni' };
   const actions = {
     projects: `<button class="btn btn-primary btn-sm" onclick="openModal('new-project')">+ Nuovo Progetto</button>`,
     knowledge: `<button class="btn btn-primary btn-sm" onclick="openModal('new-kb')">+ Articolo</button>`,
@@ -483,11 +527,8 @@ function getRecentActivity(n) {
 
 function projectProgress(p) {
   let total = 0, done = 0;
-  (p.tracks||[]).forEach(t => {
-    (t.phases||[]).forEach(ph => {
-      (ph.subtasks||[]).forEach(s => { total++; if (s.done) done++; });
-    });
-  });
+  (p.tracks||[]).forEach(t => { (t.phases||[]).forEach(ph => { (ph.subtasks||[]).forEach(s => { total++; if (s.done) done++; }); }); });
+  (p.projectTasks||[]).forEach(t => { total++; if (t.done) done++; });
   return total ? Math.round(done/total*100) : 0;
 }
 
@@ -522,11 +563,14 @@ function renderProjectDetail() {
   const p = STATE.data.projects.find(x=>x.id===STATE.activeProject);
   if (!p) return '';
   const pct = projectProgress(p);
+  const backupStatus = getBackupStatus(p);
+
   return `<div>
     <button class="btn btn-ghost btn-sm" onclick="STATE.activeProject=null;render()" style="margin-bottom:12px">← Tutti i progetti</button>
-    <div class="flex items-center gap8" style="margin-bottom:4px">
+    <div class="flex items-center gap8" style="margin-bottom:4px; align-items: flex-start;">
       <h2 style="font-size:20px;font-weight:700">${p.name}</h2>
       <span class="badge badge-${p.type}">${p.type}</span>
+      <span class="backup-badge ${backupStatus.class}"><span>${backupStatus.icon}</span> ${backupStatus.text}</span>
     </div>
     <div class="text-sm" style="margin-bottom:12px">${p.description||''}</div>
     <div class="progress-bar" style="height:6px;margin-bottom:16px"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -538,20 +582,51 @@ function renderProjectDetail() {
       <button class="btn btn-secondary btn-sm" onclick="openModal('add-history','${p.id}')">+ Nota revisione</button>
     </div>
 
+    <div style="margin-bottom:20px">
+      <h3 style="font-size:14px;font-weight:600;margin-bottom:10px">Attività Progetto</h3>
+      ${renderProjectTasks(p)}
+    </div>
+
     <div>
-      ${(p.tracks||[]).length === 0 ? `<div class="empty-state"><div class="emoji">🎸</div><p>Nessuna traccia. Aggiungine una!</p></div>` : ''}
-      ${(p.tracks||[]).map(t => renderTrack(p, t)).join('')}
+      <h3 style="font-size:14px;font-weight:600;margin-bottom:10px">Tracce</h3>
+      ${(p.tracks||[]).length === 0 ? `<div class="empty-state" style="padding:24px"><div class="emoji">🎸</div><p>Nessuna traccia. Aggiungine una!</p></div>` : ''}
+      ${(p.tracks||[]).map((t,idx) => renderTrack(p, t, idx)).join('')}
     </div>
   </div>`;
 }
 
-function renderTrack(p, t) {
+function renderProjectTasks(p) {
+  if (!(p.projectTasks||[]).length) return '<div class="text-sm">Nessuna attività progetto.</div>';
+  return (p.projectTasks||[]).map(pt => `
+    <div class="subtask-row">
+      <input type="checkbox" class="subtask-check" ${pt.done?'checked':''} onchange="toggleProjectTask('${p.id}','${pt.id}',this.checked)">
+      <div style="flex:1">
+        <div class="subtask-label ${pt.done?'done':''}">${pt.name}${pt.deadline?' 📅':''}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function getBackupStatus(p) {
+  const lastBackup = p.lastBackup ? new Date(p.lastBackup) : null;
+  if (!lastBackup) return { icon: '⚠️', text: 'Nessun backup', class: 'backup-alert' };
+  const days = Math.floor((Date.now() - lastBackup) / (1000*60*60*24));
+  if (days <= 7) return { icon: '✓', text: `Backup ${days}g fa`, class: 'backup-ok' };
+  if (days <= 14) return { icon: '⚠️', text: `Backup ${days}g fa`, class: 'backup-warning' };
+  return { icon: '🔴', text: `Backup ${days}g fa`, class: 'backup-alert' };
+}
+
+function renderTrack(p, t, idx) {
   const key = p.id + '_' + t.id;
   const open = STATE.expandedTracks[key];
   const tpct = trackProgress(t);
-  return `<div class="track-row">
+  const isFirst = idx === 0;
+  const isLast = idx === (p.tracks||[]).length - 1;
+
+  return `<div class="track-row draggable-item" draggable="true" ondragstart="startDrag(event,'track','${p.id}','${idx}')" ondrop="drop(event,'track','${p.id}')" ondragover="dragOver(event)" ondragleave="dragLeave(event)">
     <div class="track-header" onclick="toggleTrack('${key}')">
       <div class="flex items-center gap8">
+        <span class="drag-handle">⋮⋮</span>
         <span style="font-size:18px">${open?'▾':'▸'}</span>
         <div>
           <div class="track-title">${t.name}</div>
@@ -576,13 +651,14 @@ function trackProgress(t) {
 }
 
 function renderPhases(p, t) {
-  return (t.phases||[]).map(ph => {
+  return (t.phases||[]).map((ph, phIdx) => {
     const key = p.id+'_'+t.id+'_'+ph.id;
-    const open = STATE.expandedPhases[key] !== false; // default open
+    const open = STATE.expandedPhases[key] !== false;
     const prog = phaseProgress(ph);
     return `<div class="task-phase">
-      <div class="phase-header" onclick="togglePhase('${key}')">
+      <div class="phase-header" ondragstart="startDrag(event,'phase','${p.id}','${t.id}','${phIdx}')" draggable="true" onclick="togglePhase('${key}')">
         <div class="phase-title">
+          <span class="drag-handle">⋮</span>
           <span>${open?'▾':'▸'}</span>
           <span>${ph.name}</span>
           <span class="chip">${prog.done}/${prog.total}</span>
@@ -592,52 +668,63 @@ function renderPhases(p, t) {
           <button class="btn btn-ghost btn-sm" style="font-size:11px;padding:2px 6px" onclick="event.stopPropagation();openModal('add-subtask','${p.id}','${t.id}','${ph.id}')">+ Attività</button>
         </div>
       </div>
-      ${open ? `<div class="phase-body">${(ph.subtasks||[]).map(s => renderSubtask(p,t,ph,s)).join('')}</div>` : ''}
+      ${open ? `<div class="phase-body">${(ph.subtasks||[]).map((s,sIdx) => renderSubtask(p,t,ph,s,sIdx)).join('')}</div>` : ''}
     </div>`;
   }).join('');
 }
 
-function renderSubtask(p, t, ph, s) {
-  return `<div class="subtask-row">
+function renderSubtask(p, t, ph, s, sIdx) {
+  return `<div class="subtask-row draggable-item" draggable="true" ondragstart="startDrag(event,'subtask','${p.id}','${t.id}','${ph.id}','${sIdx}')" ondragover="dragOver(event)" ondrop="drop(event,'subtask','${p.id}','${t.id}','${ph.id}')">
     <input type="checkbox" class="subtask-check" ${s.done?'checked':''} onchange="toggleSubtask('${p.id}','${t.id}','${ph.id}','${s.id}',this.checked)">
     <div style="flex:1">
       <div class="subtask-label ${s.done?'done':''}">${s.name}${s.fixed?'':' <span style="color:var(--accent3);font-size:10px">custom</span>'}</div>
       ${s.note?`<div class="subtask-note">${s.note}</div>`:''}
     </div>
+    <span class="drag-handle">⋮</span>
     ${!s.fixed?`<button class="btn btn-ghost btn-sm btn-icon" onclick="deleteSubtask('${p.id}','${t.id}','${ph.id}','${s.id}')" style="color:var(--red)">✕</button>`:''}
   </div>`;
 }
 
 // ============================================================
-// PLANNER
+// PLANNER CON TABS
 // ============================================================
 function renderPlanner() {
   const milestones = [];
+  const tracks = []; const projects = []; const releases = [];
+
   (STATE.data.projects||[]).forEach(p => {
-    if (p.deadline) milestones.push({ date: p.deadline, title: p.name, sub: 'Deadline progetto', type: 'project', pct: projectProgress(p) });
-    (p.tracks||[]).forEach(t => { if (t.deadline) milestones.push({ date: t.deadline, title: t.name, sub: `${p.name}`, type: 'track', pct: trackProgress(t) }); });
+    if (p.deadline) projects.push({ date: p.deadline, title: p.name, sub: 'Deadline progetto', type: 'project', pct: projectProgress(p) });
+    (p.tracks||[]).forEach(t => { if (t.deadline) tracks.push({ date: t.deadline, title: t.name, sub: `${p.name}`, type: 'track', pct: trackProgress(t) }); });
   });
-  (STATE.data.releases||[]).forEach(r => { if (!r.done) milestones.push({ date: r.date, title: r.title, sub: r.project||'Release', type: 'release' }); });
-  milestones.sort((a,b) => new Date(a.date)-new Date(b.date));
+  (STATE.data.releases||[]).forEach(r => { if (!r.done) releases.push({ date: r.date, title: r.title, sub: r.project||'Release', type: 'release' }); });
+
+  const tabsHtml = `
+    <div class="planner-tabs">
+      <div class="planner-tab ${STATE.plannerTab==='all'?'active':''}" onclick="STATE.plannerTab='all';render()">Tutti</div>
+      <div class="planner-tab ${STATE.plannerTab==='projects'?'active':''}" onclick="STATE.plannerTab='projects';render()">Progetti</div>
+      <div class="planner-tab ${STATE.plannerTab==='tracks'?'active':''}" onclick="STATE.plannerTab='tracks';render()">Tracce</div>
+      <div class="planner-tab ${STATE.plannerTab==='releases'?'active':''}" onclick="STATE.plannerTab='releases';render()">Release</div>
+    </div>
+  `;
+
+  let items = [];
+  if (STATE.plannerTab === 'all' || STATE.plannerTab === 'projects') items = items.concat(projects);
+  if (STATE.plannerTab === 'all' || STATE.plannerTab === 'tracks') items = items.concat(tracks);
+  if (STATE.plannerTab === 'all' || STATE.plannerTab === 'releases') items = items.concat(releases);
+  items.sort((a,b) => new Date(a.date)-new Date(b.date));
 
   const icons = { project:'🎵', track:'🎸', release:'🚀' };
-  return `<div>
-    <h3 style="margin-bottom:16px;color:var(--text2);font-size:13px;text-transform:uppercase;letter-spacing:.05em">Timeline scadenze</h3>
-    ${milestones.length === 0 ? `<div class="empty-state"><div class="emoji">📅</div><p>Nessuna scadenza impostata.<br>Aggiungi deadline ai progetti o pianifica release.</p></div>` : ''}
-    ${milestones.map(m=>`<div class="timeline-item">
-      <div class="timeline-left">
-        <div class="timeline-dot" style="background:${m.type==='release'?'var(--green)':m.type==='project'?'var(--accent)':'var(--accent3)'}"></div>
+  return tabsHtml + (items.length === 0 ? `<div class="empty-state"><div class="emoji">📅</div><p>Nessuna scadenza in questa categoria.</p></div>` : items.map(m=>`<div class="timeline-item">
+    <div class="timeline-left"><div class="timeline-dot" style="background:${m.type==='release'?'var(--green)':m.type==='project'?'var(--accent)':'var(--accent3)'}"></div></div>
+    <div class="milestone-card ${deadlineClass(m.date)}">
+      <div class="flex items-center gap8" style="justify-content:space-between">
+        <div class="ms-title">${icons[m.type]} ${m.title}</div>
+        <div class="ms-date">${fmtDate(m.date)}</div>
       </div>
-      <div class="milestone-card ${deadlineClass(m.date)}">
-        <div class="flex items-center gap8" style="justify-content:space-between">
-          <div class="ms-title">${icons[m.type]} ${m.title}</div>
-          <div class="ms-date">${fmtDate(m.date)}</div>
-        </div>
-        <div class="ms-meta">${m.sub} ${m.pct!==undefined?`· ${m.pct}%`:''}</div>
-        ${m.pct!==undefined?`<div class="progress-bar" style="margin-top:6px"><div class="progress-fill" style="width:${m.pct}%"></div></div>`:''}
-      </div>
-    </div>`).join('')}
-  </div>`;
+      <div class="ms-meta">${m.sub} ${m.pct!==undefined?`· ${m.pct}%`:''}</div>
+      ${m.pct!==undefined?`<div class="progress-bar" style="margin-top:6px"><div class="progress-fill" style="width:${m.pct}%"></div></div>`:''}
+    </div>
+  </div>`).join(''));
 }
 
 // ============================================================
@@ -683,13 +770,13 @@ function renderKnowledge() {
 }
 
 // ============================================================
-// RESOURCES
+// RISORSE
 // ============================================================
 function renderResources() {
   const items = STATE.data.resources||[];
   return `<div>
-    ${items.length===0?`<div class="empty-state"><div class="emoji">📝</div><p>Nessuna risorsa ancora.</p></div>`:''}
-    ${items.map(r=>`<div class="testo-card" onclick="openModal('edit-resource','${r.id}')">
+    ${items.length===0?`<div class="empty-state"><div class="emoji">📦</div><p>Nessuna risorsa ancora.</p></div>`:''}
+    ${items.map(r=>`<div class="risorsa-card" onclick="openModal('edit-resource','${r.id}')">
       <div class="card-header" style="margin-bottom:4px">
         <div class="card-title">${r.title}</div>
         <div class="flex gap8">
@@ -698,7 +785,8 @@ function renderResources() {
         </div>
       </div>
       ${r.linkedTrack?`<div class="text-sm">🔗 ${r.linkedTrack}</div>`:''}
-      <div class="testo-preview">${r.content||''}</div>
+      ${r.fileType ? `<div class="risorsa-file">📎 ${r.fileName || 'File allegato'}</div>` : ''}
+      <div class="risorsa-preview">${r.content||''}</div>
     </div>`).join('')}
   </div>`;
 }
@@ -734,7 +822,7 @@ function renderModal() {
     content = `<div class="modal-header"><h3>Nuovo Progetto</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
       <div class="form-group"><label class="form-label">Nome</label><input class="form-input" id="m-name" placeholder="Es. Album 2025"></div>
-      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="album">Album</option><option value="ep">EP</option><option value="single">Singolo</option><option value="brano">Brano</option></select></div>
+      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="album">Album</option><option value="ep">EP</option><option value="single">Singolo</option></select></div>
       <div class="form-group"><label class="form-label">Anno</label><input class="form-input" id="m-year" placeholder="2025"></div>
       <div class="form-group"><label class="form-label">Deadline (opzionale)</label><input class="form-input" id="m-deadline" type="date"></div>
       <div class="form-group"><label class="form-label">Descrizione</label><textarea class="form-textarea" id="m-desc"></textarea></div>
@@ -747,10 +835,11 @@ function renderModal() {
     content = `<div class="modal-header"><h3>Modifica Progetto</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
       <div class="form-group"><label class="form-label">Nome</label><input class="form-input" id="m-name" value="${p.name}"></div>
-      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="album" ${p.type==='album'?'selected':''}>Album</option><option value="ep" ${p.type==='ep'?'selected':''}>EP</option><option value="single" ${p.type==='single'?'selected':''}>Singolo</option><option value="brano" ${p.type==='brano'?'selected':''}>Brano</option></select></div>
+      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="album" ${p.type==='album'?'selected':''}>Album</option><option value="ep" ${p.type==='ep'?'selected':''}>EP</option><option value="single" ${p.type==='single'?'selected':''}>Singolo</option></select></div>
       <div class="form-group"><label class="form-label">Stato</label><select class="form-select" id="m-status"><option value="todo" ${p.status==='todo'?'selected':''}>In attesa</option><option value="wip" ${p.status==='wip'?'selected':''}>In lavorazione</option><option value="done" ${p.status==='done'?'selected':''}>Completato</option><option value="archived" ${p.status==='archived'?'selected':''}>Archiviato</option></select></div>
       <div class="form-group"><label class="form-label">Anno</label><input class="form-input" id="m-year" value="${p.year||''}"></div>
       <div class="form-group"><label class="form-label">Deadline</label><input class="form-input" id="m-deadline" type="date" value="${p.deadline||''}"></div>
+      <div class="form-group"><label class="form-label">Ultimo Backup</label><input class="form-input" id="m-lastBackup" type="date" value="${p.lastBackup?p.lastBackup.substring(0,10):''}"></div>
       <div class="form-group"><label class="form-label">Descrizione</label><textarea class="form-textarea" id="m-desc">${p.description||''}</textarea></div>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Annulla</button><button class="btn btn-danger btn-sm" onclick="deleteProject('${p.id}')">🗑️</button><button class="btn btn-primary" onclick="updateProject('${p.id}')">Salva</button></div>`;
@@ -850,8 +939,8 @@ function renderModal() {
     content = `<div class="modal-header"><h3>Nuova Risorsa</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
       <div class="form-group"><label class="form-label">Titolo</label><input class="form-input" id="m-name"></div>
-      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="testo">Testo/Lirica</option><option value="nota">Nota</option><option value="idea">Idea</option><option value="ref">Reference</option></select></div>
-      <div class="form-group"><label class="form-label">Contenuto</label><textarea class="form-textarea" style="min-height:160px" id="m-content"></textarea></div>
+      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="testo">Testo/Lirica</option><option value="artwork">Artwork/Cover</option><option value="audio">Audio/SFX</option><option value="nota">Nota</option><option value="idea">Idea</option><option value="ref">Reference</option></select></div>
+      <div class="form-group"><label class="form-label">Contenuto/Descrizione</label><textarea class="form-textarea" style="min-height:120px" id="m-content"></textarea></div>
       <div class="form-group"><label class="form-label">Collega a traccia (opzionale)</label><select class="form-select" id="m-linked"><option value="">—</option>${tracks.map(t=>`<option value="${t.label}">${t.label}</option>`).join('')}</select></div>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Annulla</button><button class="btn btn-primary" onclick="createResource()">Salva</button></div>`;
@@ -863,8 +952,8 @@ function renderModal() {
     content = `<div class="modal-header"><h3>Modifica Risorsa</h3><button class="btn btn-ghost btn-icon" onclick="closeModal()">✕</button></div>
     <div class="modal-body">
       <div class="form-group"><label class="form-label">Titolo</label><input class="form-input" id="m-name" value="${r.title}"></div>
-      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="testo" ${r.type==='testo'?'selected':''}>Testo/Lirica</option><option value="nota" ${r.type==='nota'?'selected':''}>Nota</option><option value="idea" ${r.type==='idea'?'selected':''}>Idea</option><option value="ref" ${r.type==='ref'?'selected':''}>Reference</option></select></div>
-      <div class="form-group"><label class="form-label">Contenuto</label><textarea class="form-textarea" style="min-height:160px" id="m-content">${r.content||''}</textarea></div>
+      <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-type"><option value="testo" ${r.type==='testo'?'selected':''}>Testo/Lirica</option><option value="artwork" ${r.type==='artwork'?'selected':''}>Artwork/Cover</option><option value="audio" ${r.type==='audio'?'selected':''}>Audio/SFX</option><option value="nota" ${r.type==='nota'?'selected':''}>Nota</option><option value="idea" ${r.type==='idea'?'selected':''}>Idea</option><option value="ref" ${r.type==='ref'?'selected':''}>Reference</option></select></div>
+      <div class="form-group"><label class="form-label">Contenuto/Descrizione</label><textarea class="form-textarea" style="min-height:120px" id="m-content">${r.content||''}</textarea></div>
       <div class="form-group"><label class="form-label">Collega a traccia</label><select class="form-select" id="m-linked"><option value="">—</option>${tracks.map(t=>`<option value="${t.label}" ${r.linkedTrack===t.label?'selected':''}>${t.label}</option>`).join('')}</select></div>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Annulla</button><button class="btn btn-primary" onclick="updateResource('${r.id}')">Salva</button></div>`;
@@ -924,16 +1013,18 @@ function togglePhase(key) { STATE.expandedPhases[key] = STATE.expandedPhases[key
 function v(id) { return document.getElementById(id)?.value || ''; }
 
 function createProject() {
-  const p = { id: uid(), name: v('m-name'), type: v('m-type'), status: 'todo', year: v('m-year'), deadline: v('m-deadline'), description: v('m-desc'), tracks: [], history: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+  const p = { id: uid(), name: v('m-name'), type: v('m-type'), status: 'todo', year: v('m-year'), deadline: v('m-deadline'), description: v('m-desc'), tracks: [], projectTasks: JSON.parse(JSON.stringify(DEFAULT_PROJECT_TASKS)), history: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), lastBackup: null };
   STATE.data.projects.push(p);
   addActivity(p.id, `Progetto creato`);
   closeModal(); saveData();
 }
 
-function updateProject(id) {
-  const p = STATE.data.projects.find(x=>x.id===id);
+function updateProject(pid) {
+  const p = STATE.data.projects.find(x=>x.id===pid);
   p.name = v('m-name'); p.type = v('m-type'); p.status = v('m-status'); p.year = v('m-year'); p.deadline = v('m-deadline'); p.description = v('m-desc'); p.updatedAt = new Date().toISOString();
-  addActivity(id, 'Progetto aggiornato');
+  const lastBackup = v('m-lastBackup');
+  if (lastBackup) p.lastBackup = new Date(lastBackup).toISOString();
+  addActivity(pid, 'Progetto aggiornato');
   closeModal(); saveData();
 }
 
@@ -946,10 +1037,7 @@ function deleteProject(id) {
 
 function createTrack(projId) {
   const p = STATE.data.projects.find(x=>x.id===projId);
-  const phases = JSON.parse(JSON.stringify(DEFAULT_PHASES)).map(ph => ({
-    ...ph,
-    subtasks: ph.subtasks.map(s => ({ ...s, done: false }))
-  }));
+  const phases = JSON.parse(JSON.stringify(DEFAULT_PHASES)).map(ph => ({ ...ph, subtasks: ph.subtasks.map(s => ({ ...s, done: false })) }));
   const t = { id: uid(), name: v('m-name'), deadline: v('m-deadline'), note: v('m-note'), phases, history: [], createdAt: new Date().toISOString() };
   if (!p.tracks) p.tracks = [];
   p.tracks.push(t);
@@ -979,6 +1067,15 @@ function toggleSubtask(pid, tid, phid, sid, checked) {
   const ph = t.phases.find(x=>x.id===phid);
   const s = ph.subtasks.find(x=>x.id===sid);
   s.done = checked;
+  p.updatedAt = new Date().toISOString();
+  saveData();
+  render();
+}
+
+function toggleProjectTask(pid, tid, checked) {
+  const p = STATE.data.projects.find(x=>x.id===pid);
+  const t = (p.projectTasks||[]).find(x=>x.id===tid);
+  if (t) t.done = checked;
   p.updatedAt = new Date().toISOString();
   saveData();
   render();
@@ -1089,6 +1186,57 @@ function deleteRelease(id) {
 function exportJSON() {
   const blob = new Blob([JSON.stringify(STATE.data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'data.json'; a.click();
+}
+
+// ============================================================
+// DRAG & DROP
+// ============================================================
+function startDrag(e, type, ...args) {
+  STATE.dragSource = { type, args };
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  e.currentTarget.classList.add('drag-over');
+}
+
+function dragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+
+function drop(e, destType, ...destArgs) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!STATE.dragSource) return;
+  const { type: srcType, args: srcArgs } = STATE.dragSource;
+  if (srcType !== destType) return;
+
+  const [pid, tid, phid, idx] = srcArgs;
+  const p = STATE.data.projects.find(x=>x.id===pid);
+
+  if (srcType === 'track') {
+    const destIdx = parseInt(destArgs[1]);
+    const tracks = p.tracks;
+    const [track] = tracks.splice(idx, 1);
+    tracks.splice(destIdx, 0, track);
+  } else if (srcType === 'phase') {
+    const t = p.tracks.find(x=>x.id===tid);
+    const phases = t.phases;
+    const [phase] = phases.splice(idx, 1);
+    phases.splice(parseInt(destArgs[2]), 0, phase);
+  } else if (srcType === 'subtask') {
+    const t = p.tracks.find(x=>x.id===tid);
+    const ph = t.phases.find(x=>x.id===phid);
+    const subtasks = ph.subtasks;
+    const [subtask] = subtasks.splice(idx, 1);
+    const destIdx = parseInt(destArgs[3]);
+    subtasks.splice(destIdx, 0, subtask);
+  }
+
+  STATE.dragSource = null;
+  saveData();
 }
 
 // ============================================================
