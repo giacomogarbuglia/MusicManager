@@ -1741,7 +1741,7 @@
                   "id": "s8",
                   "name": "Controllare signature e tempo",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 }
               ]
             },
@@ -2050,7 +2050,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:00:41.266Z",
+      "updatedAt": "2026-06-24T12:00:43.020Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
