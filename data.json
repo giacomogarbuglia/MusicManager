@@ -101,7 +101,7 @@
                   "id": "s12",
                   "name": "Registrare chitarre",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s13",
@@ -2970,7 +2970,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T10:19:51.262Z",
+      "updatedAt": "2026-06-24T10:19:53.077Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
