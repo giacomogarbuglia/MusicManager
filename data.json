@@ -3013,6 +3013,15 @@
       "history": []
     }
   ],
-  "releases": [],
+  "releases": [
+    {
+      "id": "mqrwv02nmyt3o",
+      "title": "Sesso Alieno",
+      "date": "2024-09-10",
+      "project": "",
+      "notes": "",
+      "done": false
+    }
+  ],
   "resources": []
 }
