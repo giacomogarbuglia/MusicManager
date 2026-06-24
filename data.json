@@ -2974,7 +2974,19 @@
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
-  "knowledge": [],
+  "knowledge": [
+    {
+      "id": "mqrwphmcuuboz",
+      "title": "Strumenti di Produzione",
+      "content": "DAW:\n- Apple Logic Pro\n\nAUX instruments:\n- NAM (open source - guitar and bass amp)\n- XLN Audio Addictive Drums 2 (accesso con Apple account)\n- Spitfire Audio Abbey Road Two\n- Spitfire Audio BBC Symphony Orchestra\n- Arturia Analog LAB V\n- Soundtheory Gullfoss\n- iZotope Music Production Suite 6\n- Sine Player (Ratio, Rotary, Mistral, Crux)\n- Celemony Melodyne 5",
+      "tags": [
+        "daw",
+        "strumenti",
+        "plugin"
+      ],
+      "history": []
+    }
+  ],
   "releases": [],
   "resources": []
 }
