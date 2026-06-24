@@ -2632,7 +2632,7 @@
         {
           "id": "pt1",
           "name": "Creare album cover",
-          "done": false
+          "done": true
         },
         {
           "id": "pt2",
@@ -2732,7 +2732,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T11:51:49.775Z",
+      "updatedAt": "2026-06-24T11:51:59.900Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
