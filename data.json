@@ -4,7 +4,7 @@
       "id": "mqrweyd2kqfca",
       "name": "Rue de Provence",
       "type": "album",
-      "status": "todo",
+      "status": "wip",
       "year": "2026",
       "deadline": "2026-10-26",
       "description": "Album \"Rue de Provence\" di GEC.",
@@ -301,10 +301,14 @@
         {
           "date": "2026-06-24T09:58:34.897Z",
           "note": "Progetto aggiornato"
+        },
+        {
+          "date": "2026-06-24T09:58:52.902Z",
+          "note": "Progetto aggiornato"
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T09:58:34.897Z",
+      "updatedAt": "2026-06-24T09:58:52.902Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
