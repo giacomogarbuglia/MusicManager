@@ -2676,7 +2676,7 @@
                   "id": "s5",
                   "name": "Aggiustare tonalità secondo traccia precedente e/o successiva",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s6",
@@ -3019,7 +3019,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:04:23.077Z",
+      "updatedAt": "2026-06-24T12:04:24.788Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
