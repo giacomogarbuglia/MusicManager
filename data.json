@@ -2450,7 +2450,7 @@
                   "id": "s7",
                   "name": "Trasformare batteria (da Drummer) in MIDI (scegliere set kit, posizionare volumi, effetti ed inserire piatti)",
                   "fixed": true,
-                  "done": false
+                  "done": true
                 },
                 {
                   "id": "s8",
@@ -2777,7 +2777,7 @@
         }
       ],
       "createdAt": "2026-06-24T09:56:23.030Z",
-      "updatedAt": "2026-06-24T12:03:40.027Z",
+      "updatedAt": "2026-06-24T12:03:41.572Z",
       "lastBackup": "2026-05-15T00:00:00.000Z"
     }
   ],
