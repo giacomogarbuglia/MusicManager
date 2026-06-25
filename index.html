@@ -87,8 +87,8 @@
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent3)); border-radius: 2px; transition: width .3s; }
 
   /* MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow); }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow); min-width: 400px; min-height: 200px; }
   .modal-header { padding: 20px 20px 0; display: flex; justify-content: space-between; align-items: center; }
   .modal-header h3 { font-size: 16px; font-weight: 700; }
   .modal-body { padding: 16px 20px; }
@@ -496,6 +496,28 @@ function renderDashboard() {
     <div class="stat-box"><div class="stat-num">${totalTracks}</div><div class="stat-label">Tracce</div></div>
     <div class="stat-box"><div class="stat-num">${wip}</div><div class="stat-label">In lavorazione</div></div>
   </div>
+
+  <div style="margin-bottom:20px">
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">📊 Completamento Progetti</h3>
+    ${projs.length === 0 ? '<div class="text-sm">Nessun progetto.</div>' : projs.map(p => `
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <span style="font-size:13px;font-weight:500">${p.name}</span>
+          <span style="font-size:12px;color:var(--text2)">${projectProgress(p)}%</span>
+        </div>
+        <div class="progress-bar" style="height:8px">
+          <div class="progress-fill" style="width:${projectProgress(p)}%"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${(p.tracks||[]).length} tracce · ${p.status}</div>
+      </div>
+    `).join('')}
+  </div>
+
+  <div style="margin-bottom:20px">
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">📈 Completamento Attività per Fase</h3>
+    ${renderPhaseStats()}
+  </div>
+
   <div class="grid2">
     <div>
       <div class="card-title fw6 mb8" style="margin-bottom:10px">Attività recente</div>
@@ -514,6 +536,45 @@ function renderDashboard() {
       </div>
     </div>
   </div>`;
+}
+
+function renderPhaseStats() {
+  const phaseData = {};
+  const phaseOrder = ['demo', 'produzione', 'strumenti', 'voci', 'final_edit', 'mixing', 'mastering', 'release'];
+  
+  phaseOrder.forEach(pid => { phaseData[pid] = { done: 0, total: 0, name: '' }; });
+  
+  (STATE.data.projects||[]).forEach(p => {
+    (p.tracks||[]).forEach(t => {
+      (t.phases||[]).forEach(ph => {
+        if (!phaseData[ph.id]) phaseData[ph.id] = { done: 0, total: 0, name: ph.name };
+        (ph.subtasks||[]).forEach(s => {
+          phaseData[ph.id].total++;
+          if (s.done) phaseData[ph.id].done++;
+        });
+        phaseData[ph.id].name = ph.name;
+      });
+    });
+  });
+  
+  const allEmpty = Object.values(phaseData).every(p => p.total === 0);
+  if (allEmpty) return '<div class="text-sm">Nessuna attività tracciata.</div>';
+  
+  return Object.entries(phaseData)
+    .filter(([_, d]) => d.total > 0)
+    .map(([id, d]) => {
+      const pct = Math.round(d.done / d.total * 100);
+      return `<div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:500">${d.name}</span>
+          <span style="font-size:11px;color:var(--text2)">${d.done}/${d.total}</span>
+        </div>
+        <div class="progress-bar" style="height:6px">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+    })
+    .join('');
 }
 
 function getRecentActivity(n) {
